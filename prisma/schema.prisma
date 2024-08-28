@@ -12,17 +12,70 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-model Cliente{
-  idCliente Int @id @default(autoincrement())
-  CNPJ String
-  Nome String
-  Pais String
-  Estado String
-  Cidade String
-  Rua String
-  Bairro String
-  Numero Int
-  Email String
-  Telefone String
-  Representante String
+
+model Produto {
+  id                  Int      @id @default(autoincrement())
+  tipo                String   @db.VarChar(45)
+  espessura           Int
+  rocha               String   @db.VarChar(45)
+  tamanho             String   @db.VarChar(45)
+  acabamento          String   @db.VarChar(45)
+  quantidade_estoque  Int
+  vendas              Vendas[]
 }
+
+model Cliente {
+  id                  Int      @id @default(autoincrement())
+  cnpj                String   @db.VarChar(14)
+  nome                String   @db.VarChar(45)
+  email               String   @db.VarChar(45)
+  telefone            String   @db.VarChar(11)
+  representante       String   @db.VarChar(45)
+  id_endereco         Int
+  endereco            Endereco @relation(fields: [id_endereco], references: [id])
+  vendas              Vendas[] 
+}
+
+model Vendas {
+  id                  Int      @id @default(autoincrement())
+  dth_venda           DateTime
+  quantidade          Int
+  valor_total         Decimal  @db.Decimal(10, 2)
+  id_cliente          Int
+  cliente             Cliente  @relation(fields: [id_cliente], references: [id])
+  id_vendedor         Int
+  vendedor            Vendedor @relation(fields: [id_vendedor], references: [id])
+  id_produto          Int
+  produto             Produto  @relation(fields: [id_produto], references: [id])
+  id_pagamento        Int
+  pagamentos          Pagamentos @relation(fields: [id_pagamento], references: [id])
+}
+
+model Endereco {
+  id          Int      @id @default(autoincrement())
+  pais        String   @db.VarChar(45)
+  estado      String   @db.VarChar(45)
+  cidade      String   @db.VarChar(45)
+  rua         String   @db.VarChar(45)
+  bairro      String   @db.VarChar(45)
+  clientes    Cliente[] 
+}
+
+model Vendedor {
+  id                  Int      @id @default(autoincrement())
+  cpf                 String   @db.VarChar(11)
+  nome                String   @db.VarChar(45)
+  email               String   @db.VarChar(45)
+  telefone            String   @db.VarChar(9)
+  tipo_vinculo        String   @db.VarChar(45)
+  vendas              Vendas[] 
+}
+
+model Pagamentos {
+  id                   Int      @id @default(autoincrement())
+  tipo_pagamento       String   @db.VarChar(45)
+  detalhes_pagamento   String   @db.Text
+  vendas               Vendas[] 
+}
+
+
