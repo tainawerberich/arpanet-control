@@ -25,6 +25,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.18.0",
     "@prisma/extension-accelerate": "^1.1.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "prisma": "^5.18.0",
     "reflect-metadata": "^0.2.0",
