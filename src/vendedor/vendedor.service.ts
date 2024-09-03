@@ -3,7 +3,7 @@ import { Prisma, Vendedor } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class CreateVendedorService {
+export class VendedorService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createVendedor(data: Prisma.VendedorCreateInput): Promise<Vendedor> {
@@ -15,5 +15,10 @@ export class CreateVendedorService {
       where: { id },
     });
     return vendedor;
+  }
+
+  async getAllVendedores(): Promise<Vendedor[]> {
+    const vendedores = await this.prisma.vendedor.findMany();
+    return vendedores;
   }
 }
