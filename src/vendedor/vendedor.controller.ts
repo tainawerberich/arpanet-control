@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -30,4 +31,12 @@ export class VendedorController {
   async getAllVendedores() {
     return this.vendedorService.getAllVendedores();
   }
+
+  @Delete(':id')
+  async deleteVendedorById(@Param('id',ParseIntPipe)id:number) {
+    return this.vendedorService.deleteVendedorById(id);
+  }
+
+
+
 }

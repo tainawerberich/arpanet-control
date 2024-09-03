@@ -21,4 +21,16 @@ export class VendedorService {
     const vendedores = await this.prisma.vendedor.findMany();
     return vendedores;
   }
+
+  async deleteVendedorById(id: number): Promise<Vendedor> {
+    const vendedor = await this.prisma.vendedor.delete({
+      where: { id },
+    });
+    return vendedor;
+  }
+
+
 }
+
+
+
