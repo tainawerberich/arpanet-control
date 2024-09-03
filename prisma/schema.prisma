@@ -24,16 +24,15 @@ model Produto {
   vendas              Vendas[]
 }
 
-model User{
-  id            Int      @id @default(autoincrement())
-  email         String   @unique @db.VarChar(255)
-  senha      String   @db.VarChar(255)
-  access_token   String?  @db.VarChar(255) 
-  refresh_token  String?  @db.VarChar(255) 
+model User {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique @db.VarChar(255)
+  senha           String   @db.VarChar(255)
+  access_token    String?  @db.VarChar(255) 
+  refresh_token   String?  @db.VarChar(255) 
   dth_criacao     DateTime @default(now())
-  dth_atualizacao     DateTime @updatedAt
-  cliente_id    Int      @unique
-  cliente       Cliente  @relation(fields: [cliente_id], references: [id])
+  dth_atualizacao DateTime @updatedAt
+  cliente         Cliente[] @relation("UserClientes")
 }
 
 model Cliente {
@@ -45,10 +44,9 @@ model Cliente {
   id_endereco         Int
   endereco            Endereco @relation(fields: [id_endereco], references: [id])
   vendas              Vendas[] 
-  usuario             User[]
+  user_id             Int   @unique
+  user                User  @relation("UserClientes", fields: [user_id], references: [id])
 }
-
-
 
 model Vendas {
   id                  Int      @id @default(autoincrement())
