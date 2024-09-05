@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { VendedorModule } from './vendedor/vendedor.module';
-import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [VendedorModule, PrismaModule, UserModule],
+  imports: [VendedorModule, PrismaModule, UserModule, AuthModule],
 })
 export class AppModule {}
