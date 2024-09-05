@@ -7,13 +7,13 @@ import { AuthController } from './auth.controller';
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'defaultSecretKey', // Defina a chave secreta aqui ou em um arquivo .env
-      signOptions: { expiresIn: '1h' }, // Define a expiração do token
+      secret: process.env.JWT_SECRET || 'defaultSecretKey',
+      signOptions: { expiresIn: '1h' },
     }),
     PrismaModule,
   ],
   providers: [AuthService],
   exports: [AuthService],
-  controllers: [AuthController]
+  controllers: [AuthController],
 })
 export class AuthModule {}

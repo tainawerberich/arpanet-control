@@ -22,8 +22,4 @@ export class UserService {
       return { success: false, message: 'Usuário não foi criado' };
     }
   }
-
-  // no login, eu busco do banco na tabela user o login e a senha passado do usuário, feito isso retorna o token se for válido o usuário se achou o usuário, retorna o token
-
-  async createLogin() {}
 }
