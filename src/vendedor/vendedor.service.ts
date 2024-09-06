@@ -28,8 +28,6 @@ export class VendedorService {
     });
     return vendedor;
   }
-
-
 }
 
 
