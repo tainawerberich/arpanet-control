@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProdutoModule } from './produto/produto.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { PagamentoModule } from './pagamento/pagamento.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { PagamentoModule } from './pagamento/pagamento.module';
     ProdutoModule,
     ClienteModule,
     PagamentoModule,
+    ConfigModule.forRoot({
+      envFilePath: `.env.production`,
+      isGlobal: true,
+    }),
   ],
 })
 export class AppModule {}

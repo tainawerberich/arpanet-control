@@ -3,12 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private configService: ConfigService,
   ) {}
 
   async generateToken(user: User): Promise<string> {
@@ -29,5 +31,8 @@ export class AuthService {
     } else {
       return null;
     }
+  }
+  getJwtSecret(): string {
+    return this.configService.get<string>('JWT_SECRET');
   }
 }
